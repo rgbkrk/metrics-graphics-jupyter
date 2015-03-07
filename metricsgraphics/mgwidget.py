@@ -1,5 +1,5 @@
 from IPython.html.widgets import DOMWidget
-from IPython.utils.traitlets import Int, Unicode, Dict
+from IPython.utils.traitlets import Int, Unicode, Dict, List
 
 class MetricsGraphicsView(DOMWidget):
     _view_module = Unicode('nbextensions/metricsgraphics/mgwidget', sync=True)
@@ -19,3 +19,4 @@ class MetricsGraphicsView(DOMWidget):
     markers = List(Dict(sync=True), sync=True)
 
     data = Dict(sync=True)
+

@@ -1,17 +1,7 @@
 define(function(require) {
    var widget = require("widgets/js/widget");
 
-   // TODO: Define target
-
-   var MetricsGraphicsModel = widget.WidgetModel.extend({
-     initialize: function() {
-       this.on('change:data', this._decode, this);
-     },
-
-     _decode: function() {
-       // noop, reserved for later
-     }
-   });
+   var MG = require("/nbextensions/metricsgraphics/metricsgraphics.js");
 
    var MetricsGraphicsView = widget.DOMWidgetView.extend({
        render: function() {
@@ -22,10 +12,22 @@ define(function(require) {
                    overflow: 'hidden'
                }).appendTo(this.$el);
 
+           // TODO: Declare a unique ID
+           this.$frame.id = 'totally_unique';
+
            this.model.on('change:data', this._redraw, this);
 
            this.model.on('change:width', this._redraw, this);
            this.model.on('change:height', this._redraw, this);
+
+           this.model.on('change:title', this._redraw, this);
+           this.model.on('change:description', this._redraw, this);
+
+           this.model.on('change:x_accessor', this._redraw, this);
+           this.model.on('change:y_accessor', this._redraw, this);
+
+           this.model.on('change:markers', this._redraw, this);
+
 
            this._redraw();
        },
@@ -38,12 +40,23 @@ define(function(require) {
 
           this.$frame.width(width);
           this.$frame.height(height);
+
+          MG.data_graphic({
+            title: "UFO Sightings",
+            description: "Yearly UFO sightings from the year 1945 to 2010.",
+            data: data,
+            width: width,
+            height: height,
+            target: this.$frame.id,
+            x_accessor: 'year',
+            y_accessor: 'sightings',
+            markers: [{'year': 1964, 'label': '"The Creeping Terror" released'}]
+          });
        }
 
    });
 
    return {
-       MetricsGraphicsView: MetricsGraphicsView,
-       MetricsGraphicsModel: MetricsGraphicsModel
+       MetricsGraphicsView: MetricsGraphicsView
    };
 });

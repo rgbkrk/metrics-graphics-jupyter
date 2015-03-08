@@ -16,4 +16,4 @@ class MetricsGraphicsView(DOMWidget):
 
     markers = List(Dict(sync=True), sync=True)
 
-    data = Dict(sync=True)
+    data = List(Dict(sync=True), sync=True)

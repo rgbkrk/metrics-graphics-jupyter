@@ -12,9 +12,6 @@ define(function(require) {
                    overflow: 'hidden'
                }).appendTo(this.$el);
 
-           // TODO: Declare a unique ID
-           this.$frame.id = 'totally_unique';
-
            this.model.on('change:data', this._redraw, this);
 
            this.model.on('change:width', this._redraw, this);
@@ -47,7 +44,7 @@ define(function(require) {
             data: data,
             width: width,
             height: height,
-            target: this.$frame.id,
+            target: this.$frame,
             x_accessor: 'year',
             y_accessor: 'sightings',
             markers: [{'year': 1964, 'label': '"The Creeping Terror" released'}]

@@ -36,24 +36,33 @@ define(function(require) {
        },
 
        _redraw: function() {
+
           var data = this.model.get('data');
 
           var width = this.model.get('width');
           var height = this.model.get('height');
-
+           
+          var description = this.model.get('description');
+           
+          var title = this.model.get('title');
+          var x_accessor = this.model.get('x_accessor');
+          var y_accessor = this.model.get('y_accessor');
+          
+          var markers = this.model.get('markers');
+  
           this.$el.width(width);
           this.$el.height(height);
 
           MG.data_graphic({
-            title: "UFO Sightings",
-            description: "Yearly UFO sightings from the year 1945 to 2010.",
+            title: title,
+            description: description,
             data: data,
             width: width,
             height: height,
             target: '#' + this.$el.attr('id'),
-            x_accessor: 'year',
-            y_accessor: 'sightings',
-            markers: [{'year': 1964, 'label': '"The Creeping Terror" released'}]
+            x_accessor: x_accessor,
+            y_accessor: y_accessor,
+            markers: markers
           });
        }
 
